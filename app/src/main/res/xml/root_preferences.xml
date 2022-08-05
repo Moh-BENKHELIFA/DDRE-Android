@@ -1,0 +1,37 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="Desktop app server">
+
+        <EditTextPreference
+            app:key="@string/ipAddress"
+            app:defaultValue="192.168.137.1"
+            app:title="IPV4 Address"
+            app:useSimpleSummaryProvider="true"
+            android:inputType="numberDecimal"/>
+
+        <EditTextPreference
+            app:key="@string/serverPort"
+            app:title="Port"
+            app:useSimpleSummaryProvider="true"
+            android:inputType="numberDecimal"
+            app:defaultValue="3849"/>
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory app:title="@string/sync_header">-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="sync"-->
+<!--            app:title="@string/sync_title" />-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="sync"-->
+<!--            app:key="attachment"-->
+<!--            app:summaryOff="@string/attachment_summary_off"-->
+<!--            app:summaryOn="@string/attachment_summary_on"-->
+<!--            app:title="@string/attachment_title" />-->
+
+<!--    </PreferenceCategory>-->
+
+</PreferenceScreen>

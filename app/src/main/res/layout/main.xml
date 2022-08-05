@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    tools:ignore="MissingConstraints,SpeakableTextPresentCheck">
+
+<!--    Right lateral menu-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="600dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <include-->
+<!--            layout="@layout/home"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+<!--    </LinearLayout>-->
+
+
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.ddre.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_home" />
+
+
+
+    <fragment
+        android:id="@+id/fragmentFloatMenu"
+        android:layout_gravity="end"
+        android:name="com.example.ddre.FloatMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/floating_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+

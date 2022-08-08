@@ -13,10 +13,9 @@
         />
 
     <item
-        android:id="@+id/miSettins"
-        android:title="Settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="ifRoom"
-        />
+        android:id="@+id/miBurgerMenu"
+        android:icon="@drawable/ic_burger_menu"
+        android:title="Menu"
+        app:showAsAction="ifRoom" />
 
 </menu>

@@ -20,5 +20,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ipAddress">ipAddress</string>
     <string name="serverPort">serverPort</string>
+    <string name="appTitle">Dynamic Decals Reading Experience</string>
+    <string name="open_pdf">Open PDF</string>
+    <string name="hello_there">Hello there</string>
 
 </resources>

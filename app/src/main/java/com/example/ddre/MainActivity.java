@@ -1,19 +1,17 @@
 package com.example.ddre;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -66,6 +63,10 @@ public class MainActivity extends AppCompatActivity{
     // Key names received from the TCPClient Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
+
+
+    //ON_ACTIVITY_RESULT
+    final static int OPEN_PDF = 1;
 
 
     @Override
@@ -124,15 +125,12 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.miSettins:
+            case R.id.miBurgerMenu:
                 floatingMenu.openDrawer(Gravity.RIGHT);
                 return true;
 
             case R.id.miServerConnection:
                 client.connect();
-//                item.getIcon().mutate();
-//                item.getIcon().setColorFilter(getResources().getColor(R.color.server_connection___), PorterDuff.Mode.SRC_ATOP);
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -162,37 +160,37 @@ public class MainActivity extends AppCompatActivity{
                 case MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case TCPClient.STATE_CONNECTED:
-                              connectionInfo.setText("Connected to server");
+//                            connectionInfo.setText("Connected to server");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection_on), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(), "Connected!",Toast.LENGTH_SHORT).show();
 
                             break;
                         case TCPClient.STATE_CONNECTING:
-                            connectionInfo.setText("Connecting...");
+//                            connectionInfo.setText("Connecting...");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection___), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(),"Connecting...",Toast.LENGTH_SHORT).show();
 
                             break;
                         case TCPClient.STATE_LISTEN:
-                            connectionInfo.setText("Listening...");
+//                            connectionInfo.setText("Listening...");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection___), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(),"Listening...",Toast.LENGTH_SHORT).show();
 
                             break;
                         case TCPClient.STATE_CONNECTION_LOST:
-                            connectionInfo.setText("Connection lost...");
+//                            connectionInfo.setText("Connection lost...");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection_lost), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(),"Connection lost.",Toast.LENGTH_SHORT).show();
 
                             break;
                         case TCPClient.STATE_CONNECTION_FAILED:
-                            connectionInfo.setText("Connection failed...");
+//                            connectionInfo.setText("Connection failed...");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection_lost), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(),"Connection failed.",Toast.LENGTH_SHORT).show();
 
                             break;
                         case TCPClient.STATE_NONE:
-                            connectionInfo.setText("Waiting for action");
+//                            connectionInfo.setText("Waiting for action");
                             toolbarMenu.findItem(R.id.miServerConnection).getIcon().setColorFilter(getResources().getColor(R.color.server_connection_off), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(getApplicationContext(),"NONE...",Toast.LENGTH_SHORT).show();
 
@@ -275,5 +273,76 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Change fragment to fragment containing the PDF
+        if(requestCode == 8 && resultCode == Activity.RESULT_OK){
+
+            if(data != null) {
+                Uri documentUri = data.getData();
+//                openPDFView(uri);
+
+
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+//                transaction.setReorderingAllowed(true);
+
+//               PDFFragment fragment = new PDFFragment(documentUri);
+//               BlankFragment fragment = new BlankFragment();
+
+//                Log.i("PPPPSDF", "Is inLayout : "+ getSupportFragmentManager().findFragmentById(R.id.fragmentHome).isInLayout());
+//                transaction.replace(R.id.fragmentHome, new BlankFragment(), null);
+//                transaction.hide(getSupportFragmentManager().findFragmentById(R.id.fragmentHome));
+
+                transaction.replace(R.id.FrameLayoutContent, new PDFFragment(documentUri), null);
+//                        .addToBackStack("tag");
+
+//                transaction.add(android.R.id.content, new PDFFragment(documentUri));
+
+                Log.i("PPPPSDF", "STILL WORK 1");
+                transaction.commit();
+                Log.i("PPPPSDF", "STILL WORK 3");
+
+//
+//
+//                PdfFragment fragment;
+//
+//
+//                 fragment = (PdfFragment) getSupportFragmentManager()
+//                         .findFragmentById(R.id.fragment_pdf);
+//
+//
+//                final PdfConfiguration configuration = new PdfConfiguration.Builder()
+//                        .scrollDirection(PageScrollDirection.HORIZONTAL)
+//                        .build();
+//
+//                if (fragment == null) {
+//                    fragment = PdfFragment.newInstance(documentUri, configuration);
+//                    getSupportFragmentManager()
+//                            .beginTransaction()
+//                            .replace(R.id.fragment_pdf, fragment)
+//                            .commit();
+//                }
+
+
+//
+
+
+//                setContentView(R.layout.fragment_pdf);
+
+
+
+
+
+
+
+//            fragment.menu(true);
+
+
+
+            }
+        }
+    }
 
 }

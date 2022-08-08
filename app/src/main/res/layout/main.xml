@@ -31,22 +31,29 @@
 <!--    </LinearLayout>-->
 
 
+    <FrameLayout
+        android:id="@+id/FrameLayoutContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        android:id="@+id/FrameLayoutContent"
 
-    <fragment
-        android:id="@+id/fragmentHome"
-        android:name="com.example.ddre.HomeFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_home" />
+
+        <fragment
+            android:id="@+id/fragmentHome"
+            android:name="com.example.ddre.PSPDFFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_pspdf" />
+    </FrameLayout>
 
 
 
     <fragment
         android:id="@+id/fragmentFloatMenu"
-        android:layout_gravity="end"
         android:name="com.example.ddre.FloatMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="end"
         tools:layout="@layout/floating_menu" />
 
 

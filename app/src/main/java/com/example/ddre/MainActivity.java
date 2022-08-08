@@ -1,5 +1,7 @@
 package com.example.ddre;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -26,12 +28,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pspdfkit.datastructures.TextSelection;
+import com.pspdfkit.ui.special_mode.controller.TextSelectionController;
+import com.pspdfkit.ui.special_mode.manager.TextSelectionManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     protected static TCPClient client;
 
@@ -198,7 +204,7 @@ public class MainActivity extends AppCompatActivity{
                     }
                     break;
                 case MESSAGE_WRITE:
-                    chat.setText(chat.getText() + "\n" + msg.getData().getString("MESSAGE"));
+//                    chat.setText(chat.getText() + "\n" + msg.getData().getString("MESSAGE"));
                     break;
                 case MESSAGE_READ:
 
@@ -206,7 +212,7 @@ public class MainActivity extends AppCompatActivity{
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
 
-                    chat.setText(chat.getText() + "\n" + readMessage);
+//                    chat.setText(chat.getText() + "\n" + readMessage);
                     break;
             }
         }
@@ -273,6 +279,8 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    PDFFragment pdfFragment = new PDFFragment();
+
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -288,23 +296,27 @@ public class MainActivity extends AppCompatActivity{
                 FragmentTransaction transaction = manager.beginTransaction();
 //                transaction.setReorderingAllowed(true);
 
-//               PDFFragment fragment = new PDFFragment(documentUri);
+//                pdfFragment = new PDFFragment(documentUri);
 //               BlankFragment fragment = new BlankFragment();
+
+                pdfFragment.setDocumentUri(documentUri);
 
 //                Log.i("PPPPSDF", "Is inLayout : "+ getSupportFragmentManager().findFragmentById(R.id.fragmentHome).isInLayout());
 //                transaction.replace(R.id.fragmentHome, new BlankFragment(), null);
-//                transaction.hide(getSupportFragmentManager().findFragmentById(R.id.fragmentHome));
+                transaction.hide(getSupportFragmentManager().findFragmentById(R.id.fragmentHome));
+//
+                transaction.add(R.id.FrameLayoutContent, pdfFragment).addToBackStack("tag");
 
-                transaction.replace(R.id.FrameLayoutContent, new PDFFragment(documentUri), null);
+
+//                transaction.replace(R.id.FrameLayoutContent, fragment, null);
 //                        .addToBackStack("tag");
 
 //                transaction.add(android.R.id.content, new PDFFragment(documentUri));
 
-                Log.i("PPPPSDF", "STILL WORK 1");
                 transaction.commit();
-                Log.i("PPPPSDF", "STILL WORK 3");
 
 //
+
 //
 //                PdfFragment fragment;
 //
@@ -344,5 +356,9 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
+
+
+
+
 
 }
